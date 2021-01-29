@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Jungle . {{ error }} Error</title>
+    {% include '../includes/head.html' %}
+    {% if userSettings.mode == 'Light' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'public/navigation/css/navigationLight.css' %}">
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/help.css' %}">
+  </head>
+
+  <body>
+    {% include '../includes/navigationBar.html' %}
+    <div class="container">
+      <h1>{{ error }}</h1>
+      <h1>{{ message }}</h1>
+    </div>
+  </body>
+
+</html>
