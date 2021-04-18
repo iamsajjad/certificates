@@ -3,7 +3,7 @@
 <html lang="en">
 
   <head>
-    <title>certificates</title>
+    <title>{{ student.name }}</title>
     {% include '../includes/head.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/dashboard.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'logger/css/logger.css' %}">
@@ -20,24 +20,30 @@
   <body>
     {% include '../includes/navigationBar.html' %}
     <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
-    <h2>Students certificates</h2>
+    <h2>{{ student.name }}</h2>
     <div class="table-wrapper">
       <table class="fl-table">
         <thead>
           <tr>
-            <th>Student Name</th>
-            <th>College</th>
+            <th>{{ student.grades.m1 }}</th>
+            <th>{{ student.grades.m2 }}</th>
+            <th>{{ student.grades.m3 }}</th>
+            <th>{{ student.grades.m4 }}</th>
+            <th>{{ student.grades.m5 }}</th>
+            <th>{{ student.grades.m6 }}</th>
+            <th>{{ student.grades.m7 }}</th>
           </tr>
         </thead>
         <tbody>
-          {% for student in students %}
           <tr>
-            <a href="{% url 'studentProfile' pk=student.id %}">
-              <td>{{ student.name }}</td>
-              <td>{{ student.college }}</td>
-            </a>
+            <td>{{ student.grades.d1 }}</td>
+            <td>{{ student.grades.d2 }}</td>
+            <td>{{ student.grades.d3 }}</td>
+            <td>{{ student.grades.d4 }}</td>
+            <td>{{ student.grades.d5 }}</td>
+            <td>{{ student.grades.d6 }}</td>
+            <td>{{ student.grades.d7 }}</td>
           </tr>
-          {% endfor %}
           <tbody>
       </table>
     </div>
