@@ -25,5 +25,5 @@ urlpatterns = [
     #Dashboard URLs "Home Page"
     path('', include('dashboard.urls')),
     #Students URLs "Home Page"
-    path('graduates', include('graduates.urls')),
+    path('', include('graduates.urls')),
 ]

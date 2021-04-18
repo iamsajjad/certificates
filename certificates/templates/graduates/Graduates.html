@@ -8,20 +8,36 @@
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/dashboard.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'logger/css/logger.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'note/css/note.css' %}">
-    {% if userSettings.mode == 'Light' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/graduates.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'public/navigation/css/navigationLight.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/dashboardLight.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'logger/css/loggerLight.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'note/css/noteLight.css' %}">
-    {% endif %}
   </head>
 
   <body>
     {% include '../includes/navigationBar.html' %}
-    <div class="container">
-    </div>
-
     <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
+    <h2>Responsive Table</h2>
+    <div class="table-wrapper">
+      <table class="fl-table">
+        <thead>
+          <tr>
+            <th>Studnt Name</th>
+            <th>College</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.college }}</td>
+          </tr>
+          {% endfor %}
+          <tbody>
+      </table>
+    </div>
   </body>
 
 </html>
