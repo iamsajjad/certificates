@@ -27,16 +27,17 @@
           <tr>
             <th>Student Name</th>
             <th>College</th>
+            <th>Student Average</th>
           </tr>
         </thead>
         <tbody>
           {% for student in students %}
-          <tr>
-            <a href="{% url 'studentProfile' pk=student.id %}">
+            <tr onclick='window.location="{% url 'studentProfile' pk=student.id %}"'>
               <td>{{ student.name }}</td>
               <td>{{ student.college }}</td>
-            </a>
-          </tr>
+              <td>{{ student.avg }}</td>
+            </tr>
+          </a>
           {% endfor %}
           <tbody>
       </table>

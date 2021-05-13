@@ -1,0 +1,95 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <title>Print Out ({{ student.name }})</title>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'public/includes/fonts/fonts.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/print.css' %}">
+  </head>
+
+  <body onload="printCluster()">
+    {% language printerSettings.language %}
+    <div class="container-wapper">
+      <div class="container">
+        <img class="QRcode" src="{% static 'temporary/cluster.svg' %}" alt=""></td>
+      <h1 class="header">Infromation Technology Certificate</h1>
+      <table class="infoTable">
+        <tr>
+          <td>
+            <p>{% trans 'Name' %} : {{ student.name }}</p>
+          </td>
+          <td>
+            <p>{% trans 'College' %} : {{ student.college }}</p>
+          </td>
+          <td>
+            <p class="id">ID : {{ student.id }}</p>
+          </td>
+        </tr>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <th class="no">#</th>
+            <th class="item">{% trans 'Subject' %}</th>
+            <th class="quantity">{% trans 'Degree' %}</th>
+          </tr>
+          <tr>
+            <td class="no">1</td>
+            <td class="item">{{ student.m1 }}</td>
+            <td class="item">{{ student.d1 }}</td>
+          </tr>
+          <tr>
+            <td class="no">2</td>
+            <td class="item">{{ student.m2 }}</td>
+            <td class="item">{{ student.d2 }}</td>
+          </tr>
+          <tr>
+            <td class="no">3</td>
+            <td class="item">{{ student.m3 }}</td>
+            <td class="item">{{ student.d3 }}</td>
+          </tr>
+          <tr>
+            <td class="no">4</td>
+            <td class="item">{{ student.m4 }}</td>
+            <td class="item">{{ student.d4 }}</td>
+          </tr>
+          <tr>
+            <td class="no">5</td>
+            <td class="item">{{ student.m5 }}</td>
+            <td class="item">{{ student.d5 }}</td>
+          </tr>
+          <tr>
+            <td class="no">6</td>
+            <td class="item">{{ student.m6 }}</td>
+            <td class="item">{{ student.d6 }}</td>
+          </tr>
+          <tr>
+            <td class="no">7</td>
+            <td class="item">{{ student.m7 }}</td>
+            <td class="item">{{ student.d7 }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="priceContainer">
+        <tr>
+          <td class="priceInfo mainTotal" colspan="3">
+            <h4>{% trans 'Average' %} : {{ student.avg }}</h4>
+          </td>
+        </tr>
+      </table>
+      </div>
+    </div>
+    <script>
+
+      function printCluster() {
+        window.print();
+      }
+    </script>
+  </body>
+
+  {% endlanguage %}
+</html>

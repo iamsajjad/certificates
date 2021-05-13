@@ -1,9 +1,55 @@
 
+from datetime import datetime
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-from student.models import Student, Grades
+from pyqrcode import QRCode
+from student.models import Student
 # Create your views here.
+
+# make QR code
+def qrCodeGen(student):
+
+    primary = student.id
+    name = student.name
+    date = datetime.now().year
+    d1 = student.d1
+    d2 = student.d2
+    d3 = student.d3
+    d4 = student.d4
+    d5 = student.d5
+    d6 = student.d6
+    d7 = student.d7
+    avg = student.avg
+
+
+    QRdata = str("""
+    Information Technology Certificate
+
+    ID : {0}
+    Student Name : {1}
+    Year : {2}
+
+    ++++++++++++++++++++
+
+    Web Programming : {3}
+    Data communiction : {4}
+    Linux Operating System : {5}
+    Wan Technology : {6}
+    Planning For Information Network : {7}
+    English : {8}
+    Project : {9}
+
+    ++++++++++++++++++++
+
+    Average : {10}
+
+    """.format(primary, name, date, d1, d2, d3,
+               d4, d5, d6, d7, avg))
+
+    QRobject = QRCode(QRdata, encoding='utf-8')
+    QRobject.svg("static/temporary/cluster.svg", scale = 1)
 
 @login_required(login_url='/account/')
 def graduatesView(request):
@@ -32,36 +78,35 @@ def addStudent(request):
     m6 = request.POST.get('m6', 'Unknow')
     m7 = request.POST.get('m7', 'Unknow')
 
-    d1 = request.POST.get('d1', 'Unknow')
-    d2 = request.POST.get('d2', 'Unknow')
-    d3 = request.POST.get('d3', 'Unknow')
-    d4 = request.POST.get('d4', 'Unknow')
-    d5 = request.POST.get('d5', 'Unknow')
-    d6 = request.POST.get('d6', 'Unknow')
-    d7 = request.POST.get('d7', 'Unknow')
+    d1 = float(request.POST.get('d1', 'Unknow'))
+    d2 = float(request.POST.get('d2', 'Unknow'))
+    d3 = float(request.POST.get('d3', 'Unknow'))
+    d4 = float(request.POST.get('d4', 'Unknow'))
+    d5 = float(request.POST.get('d5', 'Unknow'))
+    d6 = float(request.POST.get('d6', 'Unknow'))
+    d7 = float(request.POST.get('d7', 'Unknow'))
+
+    avg = float(sum([d1, d2, d3, d4, d5, d6, d7]) / 7)
 
     new_student = Student.objects.create(
-            name = name,
-            college=college)
-
-    new_grades = Grades.objects.create(
-            sclass=sclass,
-            m1=m1,
-            d1=d1,
-            m2=m2,
-            d2=d2,
-            m3=m3,
-            d3=d3,
-            m4=m4,
-            d4=d4,
-            m5=m5,
-            d5=d5,
-            m6=m6,
-            d6=d6,
-            m7=m7,
-            d7=d7)
-    new_student.grades.add(new_grades)
-    new_grades.save()
+        name = name,
+        college=college,
+        sclass=sclass,
+        m1=m1,
+        d1=d1,
+        m2=m2,
+        d2=d2,
+        m3=m3,
+        d3=d3,
+        m4=m4,
+        d4=d4,
+        m5=m5,
+        d5=d5,
+        m6=m6,
+        d6=d6,
+        m7=m7,
+        d7=d7,
+        avg=avg)
     new_student.save()
 
     students = Student.objects.all()
@@ -69,8 +114,7 @@ def addStudent(request):
     response = {
         'students' : students
     }
-
-    return render(request, 'graduates/Graduates.html', response)
+    return HttpResponseRedirect('/graduates/')
 
 @login_required(login_url='/account/')
 def studentProfile(request, pk):
@@ -82,3 +126,16 @@ def studentProfile(request, pk):
     }
 
     return render(request, 'graduates/studentProfile.html', response)
+
+@login_required(login_url='/account/')
+def printPage(request, pk):
+
+    student = Student.objects.get(id=pk)
+    QRcode = qrCodeGen(student)
+
+    response = {
+        'student' : student
+    }
+
+    return render(request, 'graduates/printPage.html', response)
+

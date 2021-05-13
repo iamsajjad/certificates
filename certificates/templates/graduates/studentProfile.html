@@ -5,6 +5,7 @@
   <head>
     <title>{{ student.name }}</title>
     {% include '../includes/head.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/master.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/dashboard.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'logger/css/logger.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'note/css/note.css' %}">
@@ -14,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard/css/dashboardLight.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'logger/css/loggerLight.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'note/css/noteLight.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/master.css' %}">
   </head>
 
   <body>
@@ -23,29 +23,40 @@
     <h2>{{ student.name }}</h2>
     <div class="table-wrapper">
       <table class="fl-table">
-        <thead>
-          <tr>
-            <th>{{ student.grades.m1 }}</th>
-            <th>{{ student.grades.m2 }}</th>
-            <th>{{ student.grades.m3 }}</th>
-            <th>{{ student.grades.m4 }}</th>
-            <th>{{ student.grades.m5 }}</th>
-            <th>{{ student.grades.m6 }}</th>
-            <th>{{ student.grades.m7 }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ student.grades.d1 }}</td>
-            <td>{{ student.grades.d2 }}</td>
-            <td>{{ student.grades.d3 }}</td>
-            <td>{{ student.grades.d4 }}</td>
-            <td>{{ student.grades.d5 }}</td>
-            <td>{{ student.grades.d6 }}</td>
-            <td>{{ student.grades.d7 }}</td>
-          </tr>
-          <tbody>
+        <tr>
+          <td>{{ student.m1 }}</td>
+          <td>{{ student.d1 }}</td>
+        </tr>
+        <tr>
+          <td>{{ student.m2 }}</td>
+          <td>{{ student.d2 }}</td>
+        </tr>
+        <tr>
+          <td>{{ student.m3 }}</td>
+          <td>{{ student.d3 }}</td>
+        </tr>
+        <tr>
+          <td>{{ student.m4 }}</td>
+          <td>{{ student.d4 }}</td>
+        </tr>
+        <tr>
+          <td>{{ student.m5 }}</td>
+          <td>{{ student.d5 }}</td>
+        </tr>
+        <tr>
+          <td>{{ student.m6 }}</td>
+          <td>{{ student.d6 }}</td>
+        </tr>
+        <tr>
+          <td>{{ student.m7 }}</td>
+          <td>{{ student.d7 }}</td>
+        </tr>
       </table>
+    </div>
+    <div class="CAcon">
+      <h3 class="StudentCA"> College : {{ student.college }}</h3>
+      <h3 class="StudentCA"> Average : {{ student.avg }}</h3>
+      <a href="{% url 'printPage' pk=student.id %}"><button class="btn">Print</button></a>
     </div>
   </body>
 
