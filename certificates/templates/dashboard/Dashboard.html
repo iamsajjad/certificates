@@ -19,6 +19,9 @@
   <body>
     {% include '../includes/navigationBar.html' %}
     <div class="container">
+      {% if settings.privilege == "user" %}
+      <h1>You cant add student with user privilege.</h1>
+      {% else %}
       <form id="addressesForm"action="{% url 'addStudent' %}" method="POST"> {% csrf_token %}
         <a href="/"><h3>Add Student</h3></a>
         <h4>Full all fields to add student</h4>
@@ -54,6 +57,7 @@
         <button name="submit" type="submit" id="addressesForm-submit" data-submit="...Sending">Submit</button>
         </fieldset>
       </form>
+      {% endif %}
     </div>
     <script src="{% static 'dashboard/js/dashboard.js' %}"></script>
   </body>

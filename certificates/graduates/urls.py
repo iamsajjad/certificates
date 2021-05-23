@@ -9,4 +9,5 @@ urlpatterns = [
     path('addStudent/', addStudent, name='addStudent'),
     path('studentProfile/<int:pk>/', studentProfile, name='studentProfile'),
     path('printPage/<int:pk>/', printPage, name='printPage'),
+    path('delete/<int:pk>/', delete, name='delete'),
 ]

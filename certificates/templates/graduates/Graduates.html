@@ -28,6 +28,9 @@
             <th>Student Name</th>
             <th>College</th>
             <th>Student Average</th>
+            {% if settings.privilege == "superuser" %}
+            <th>Delete</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody>
@@ -36,6 +39,9 @@
               <td>{{ student.name }}</td>
               <td>{{ student.college }}</td>
               <td>{{ student.avg }}</td>
+            {% if settings.privilege == "superuser" %}
+              <td><a href="{% url 'delete' pk=student.id %}">Delete</a></td>
+            {% endif %}
             </tr>
           </a>
           {% endfor %}

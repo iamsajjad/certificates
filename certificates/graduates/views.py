@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from pyqrcode import QRCode
 from student.models import Student
+from author.models import UserSettings
 # Create your views here.
 
 # make QR code
@@ -54,17 +55,20 @@ def qrCodeGen(student):
 @login_required(login_url='/account/')
 def graduatesView(request):
 
-
     students = Student.objects.all()
+    settings = UserSettings.objects.get(id=request.user.id)
 
     response = {
-        'students' : students
+        'students' : students,
+        'settings' : settings
     }
 
     return render(request, 'graduates/Graduates.html', response)
 
 @login_required(login_url='/account/')
 def addStudent(request):
+
+    settings = UserSettings.objects.get(id=request.user.id)
 
     name = request.POST.get('name', 'Unknow')
     college = request.POST.get('college', 'Unknow')
@@ -112,7 +116,8 @@ def addStudent(request):
     students = Student.objects.all()
 
     response = {
-        'students' : students
+        'students' : students,
+        'settings' : settings
     }
     return HttpResponseRedirect('/graduates/')
 
@@ -120,9 +125,11 @@ def addStudent(request):
 def studentProfile(request, pk):
 
     student = Student.objects.get(id=pk)
+    settings = UserSettings.objects.get(id=request.user.id)
 
     response = {
-        'student' : student
+        'student' : student,
+        'settings' : settings
     }
 
     return render(request, 'graduates/studentProfile.html', response)
@@ -131,11 +138,21 @@ def studentProfile(request, pk):
 def printPage(request, pk):
 
     student = Student.objects.get(id=pk)
+    settings = UserSettings.objects.get(id=request.user.id)
     QRcode = qrCodeGen(student)
 
     response = {
-        'student' : student
+        'student' : student,
+        'settings' : settings
     }
 
     return render(request, 'graduates/printPage.html', response)
+
+@login_required(login_url='/account/')
+def delete(request, pk):
+
+    student = Student.objects.get(id=pk)
+    student.delete()
+
+    return HttpResponseRedirect('/graduates/')
 
