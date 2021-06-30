@@ -1,0 +1,22 @@
+
+* {
+  transition: 0.3s;
+}
+
+.logsContainer {
+  background: #ffffff;
+  box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+.logsTitle {
+  color: #000000;
+}
+.logMessage {
+  color: #101010;
+  background: #cccccc;
+}
+
+.block {
+  color: #ffffff;
+  background: #000000;
+}

@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Jungle . Logger</title>
+    {% include '../includes/head.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'logger/css/logger.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'public/navigation/css/navigationLight.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'logger/css/loggerLight.css' %}">
+  </head>
+
+  <body>
+    {% include '../includes/navigationBar.html' %}
+    <div class="container">
+      <div class="loggerContainer">
+        <div class="logsContainer">
+          <p class="logsTitle">Logs</p>
+          {% load i18n %}
+          {% for log in logs %}
+          <p class="logMessage">{{ log.date }} : <span class="block">{{ log.message }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

@@ -26,4 +26,5 @@ urlpatterns = [
     path('', include('dashboard.urls')),
     #Students URLs "Home Page"
     path('', include('graduates.urls')),
+    path('logs', include('logger.urls')),
 ]

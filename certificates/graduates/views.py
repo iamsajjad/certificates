@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from pyqrcode import QRCode
 from student.models import Student
 from author.models import UserSettings
+from logger.models import Logger
 # Create your views here.
 
 # make QR code
@@ -115,6 +116,8 @@ def addStudent(request):
 
     students = Student.objects.all()
 
+    Logger.objects.create(message=f'{request.user} : added {name} certificate').save()
+
     response = {
         'students' : students,
         'settings' : settings
@@ -126,6 +129,7 @@ def studentProfile(request, pk):
 
     student = Student.objects.get(id=pk)
     settings = UserSettings.objects.get(id=request.user.id)
+    Logger.objects.create(message=f'{request.user} : viewed {student.name} certificate').save()
 
     response = {
         'student' : student,
@@ -146,12 +150,15 @@ def printPage(request, pk):
         'settings' : settings
     }
 
+    Logger.objects.create(message=f'{request.user} : print {student.name} certificate').save()
+
     return render(request, 'graduates/printPage.html', response)
 
 @login_required(login_url='/account/')
 def delete(request, pk):
 
     student = Student.objects.get(id=pk)
+    Logger.objects.create(message=f'{request.user} : delete {student.name} certificate').save()
     student.delete()
 
     return HttpResponseRedirect('/graduates/')

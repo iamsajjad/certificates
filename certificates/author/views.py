@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from .models import UserSettings
+from logger.models import Logger
 
 # Create your views here.
 def accountsPage(request):
@@ -24,6 +25,7 @@ def signIn(request):
     author = str(username)
     if user is not None:
         login(request, user)
+        Logger.objects.create(message=f'{username} : signed in !').save()
         return HttpResponseRedirect(request.POST.get('next', '/'))
     else:
         return HttpResponseRedirect('/account/')
@@ -40,6 +42,7 @@ def signUp(request):
             user.is_staff = True
             user.is_superuser = True
             user.save()
+            Logger.objects.create(message=f'{username} : signed up as {privilege}').save()
         except:
             return HttpResponseRedirect('/account/')
         else:
